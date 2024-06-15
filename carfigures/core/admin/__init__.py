@@ -61,7 +61,7 @@ def init_fastapi_app() -> FastAPI:
             os.environ["CARFIGURESBOT_REDIS_URL"], decode_responses=True, encoding="utf8"
         )
         await admin_app.configure(
-            logo_url="https://i.imgur.com/EijzuYy.png",
+            logo_url="https://i.imgur.com/j3pJcT5.png",
             template_folders=[os.path.join(BASE_DIR, "carfigures", "templates")],
             favicon_url="https://raw.githubusercontent.com/fastapi-admin/"  # type: ignore
             "fastapi-admin/dev/images/favicon.png",
