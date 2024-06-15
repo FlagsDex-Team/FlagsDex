@@ -464,9 +464,9 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
         limited: bool
             Omit this to make it random.
         weight_bonus: int | None
-            Omit this to make it random (-20/+20%).
+            Omit this to make it random (-50/+50%).
         horsepower_bonus: int | None
-            Omit this to make it random (-20/+20%).
+            Omit this to make it random (-50/+50%).
         """
         # the transformers triggered a response, meaning user tried an incorrect input
         if interaction.response.is_done():
@@ -479,8 +479,8 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
                 car=car,
                 player=player,
                 limited=(limited if limited is not None else random.randint(1, 2048) == 1),
-                horsepower_bonus=(horsepower_bonus if horsepower_bonus is not None else random.randint(-20, 20)),
-                weight_bonus=(weight_bonus if weight_bonus is not None else random.randint(-20, 20)),
+                horsepower_bonus=(horsepower_bonus if horsepower_bonus is not None else random.randint(-50, 50)),
+                weight_bonus=(weight_bonus if weight_bonus is not None else random.randint(-50, 50)),
                 event=event,
             )
         await interaction.followup.send(
@@ -678,7 +678,7 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
         Parameters
         ----------
         guild_id: str
-            The ID of the user you want to blacklist, if it's not in the current server.
+            The ID of the guild you want to blacklist.
         reason: str
         """
 
@@ -725,19 +725,19 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
         Parameters
         ----------
         guild_id: str
-            The ID of the user you want to unblacklist, if it's not in the current server.
+            The ID of the guild you want to unblacklist.
         """
 
         try:
             guild = await self.bot.fetch_guild(int(guild_id))  # type: ignore
         except ValueError:
             await interaction.response.send_message(
-                "The user ID you gave is not valid.", ephemeral=True
+                "The guild ID you gave is not valid.", ephemeral=True
             )
             return
         except discord.NotFound:
             await interaction.response.send_message(
-                "The given user ID could not be found.", ephemeral=True
+                "The given guild ID could not be found.", ephemeral=True
             )
             return
 
@@ -769,7 +769,7 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
         Parameters
         ----------
         guild_id: str
-            The ID of the user you want to check, if it's not in the current server.
+            The ID of the guild you want to check.
         """
 
         try:
@@ -788,7 +788,9 @@ class SuperUser(commands.GroupCog, group_name=settings.superuser_group_cog_name)
         try:
             blacklisted = await BlacklistedGuild.get(discord_id=guild.id)
         except DoesNotExist:
-            await interaction.response.send_message("That guild isn't blacklisted.")
+            await interaction.response.send_message(
+                "That guild isn't blacklisted.", ephemeral=True
+            )
         else:
             if blacklisted.date:
                 await interaction.response.send_message(
