@@ -19,8 +19,8 @@ CarFigures aims to address the community's frustrations and provide an alternati
 ### Requirements
 Before the Installation, make sure to have the following
 
-- Git | Used for cloning and managing the project repository, and also updating your bot to the latest versions too. | [https://git-scm.com/downloads](https://git-scm.com/downloads)
-- Docker Desktop (1*) | Provides an easy way to run your bot in isolated containers. | [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+- Git | Used for cloning and managing the project repository, and also updating your bot to the latest versions too. | [https://git-scm.com/downloads](https://git-scm.com/downloads) 
+- Docker Desktop (1*) | Provides an easy way to run your bot in isolated containers. | [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop) 
 - Discord bot Instance | Required to create and manage your bot on Discord. | [https://discord.com/developers/applications](https://discord.com/developers/applications)
 
 > 1* - if u are using linux as ur main desktop (like me) or hosting the bot on a linux server, its generally better to use [Docker Engine](https://docs.docker.com/engine/install/)
@@ -38,7 +38,7 @@ now since all this is done, let's start!
 
 > 1* - that this will make you responsible for maintaining your own fork of CF, if you are not interested in that and just want to make a bot, then just git clone the carfigures repo, as you can see it in the third step.\
 > 2* - The settings.toml isn't updated by default when updating the bot files, you are required to check if any changes happened to the toml file by yourself, i will update the link of download every-time a new update for it gets released, its your responsibility.
-
+ 
 ## Post-Installation
 
 Once you have completed the installation and configuration steps, its time to configure and make the bot look the way you like it to be!
