@@ -1,6 +1,6 @@
 # FlagsDex - The Dex Bot for the Rest of Us
 
-![FlagsDex Banner](assets/Banner.png)
+![FlagsDex Banner](assets/logos/Banner.png)
 [![FlagsDex-Team Profile](https://img.shields.io/badge/FlagsDex-Team%20Profile-ffffff?style=for-the-badge&logo=codeberg&logoColor=black)](https://codeberg.org/FlagsDex-Team/)
 [![Python](https://img.shields.io/badge/Discord.py-ffffff?style=for-the-badge&logo=python&logoColor=blue)](https://python.org)
 [![Pull Requests](https://img.shields.io/badge/Pull_Request-white?style=for-the-badge&logo=git&logoColor=F1502F)](https://codeberg.org/FlagsDex-Team/FlagsDex/pulls)
