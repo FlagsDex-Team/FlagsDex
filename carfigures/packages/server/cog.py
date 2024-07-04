@@ -19,7 +19,7 @@ activation_embed = discord.Embed(
     "As a summary, these are the rules of the bot:\n"
     f"- No farming (spamming or creating servers for {settings.collectible_name}s)\n"
     "- Do not attempt to abuse the bot's internals\n"
-    "**Not respecting these rules will lead to a blacklist**",
+    "**Not respecting these rules will lead to a blacklist**"
     f"- Selling or exchanging {settings.collectible_name}s "
     "against money or other goods is forbidden\n"
 )
