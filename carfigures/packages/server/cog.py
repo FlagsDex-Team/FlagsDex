@@ -18,8 +18,6 @@ activation_embed = discord.Embed(
     f"read and accept the [Terms of Service]({settings.terms_of_service}).\n\n"
     "As a summary, these are the rules of the bot:\n"
     f"- No farming (spamming or creating servers for {settings.collectible_name}s)\n"
-    f"- Selling or exchanging {settings.collectible_name}s "
-    "against money or other goods is forbidden\n"
     "- Do not attempt to abuse the bot's internals\n"
     "**Not respecting these rules will lead to a blacklist**",
 )
@@ -47,26 +45,22 @@ class Server(commands.GroupCog, group_name=settings.server_group_name):
         user = cast(discord.Member, interaction.user)
         if not user.guild_permissions.manage_guild:
             await interaction.response.send_message(
-                "You need the permission to manage the server to use this.",
-                ephemeral=True
+                "You need the permission to manage the server to use this.", ephemeral=True
             )
             return
         if not channel.permissions_for(guild.me).read_messages:
             await interaction.response.send_message(
-                f"I need the permission to read messages in {channel.mention}.",
-                ephemeral=True
+                f"I need the permission to read messages in {channel.mention}.", ephemeral=True
             )
             return
         if not channel.permissions_for(guild.me).send_messages:
             await interaction.response.send_message(
-                f"I need the permission to send messages in {channel.mention}.",
-                ephemeral=True
+                f"I need the permission to send messages in {channel.mention}.", ephemeral=True
             )
             return
         if not channel.permissions_for(guild.me).embed_links:
             await interaction.response.send_message(
-                f"I need the permission to send embed links in {channel.mention}.",
-                ephemeral=True
+                f"I need the permission to send embed links in {channel.mention}.", ephemeral=True
             )
             return
         await interaction.response.send_message(
@@ -82,8 +76,7 @@ class Server(commands.GroupCog, group_name=settings.server_group_name):
         user = cast(discord.Member, interaction.user)
         if not user.guild_permissions.manage_guild:
             await interaction.response.send_message(
-                "You need the permission to manage the server to use this.",
-                ephemeral=True
+                "You need the permission to manage the server to use this.", ephemeral=True
             )
             return
         config, created = await GuildConfig.get_or_create(guild_id=interaction.guild_id)
@@ -121,8 +114,7 @@ class Server(commands.GroupCog, group_name=settings.server_group_name):
         user = cast(discord.Member, interaction.user)
         if not user.guild_permissions.manage_guild:
             await interaction.response.send_message(
-                "You need the permission to manage the server to use this.",
-                ephemeral=True
+                "You need the permission to manage the server to use this.", ephemeral=True
             )
             return
         if not settings.spawnalert:

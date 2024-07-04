@@ -7,6 +7,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from carfigures import bot_version
 from carfigures.core.models import cars as carfigures
 from carfigures.core.utils.transformers import EventTransform
 from carfigures.core.utils.paginator import FieldPageSource, Pages
@@ -89,7 +90,7 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
             value=f"\u200b **⋄ {settings.collectible_name.title()}s Count: ** {cars_count:,} • {cars_instances_count:,} **Caught**\n"
             f"\u200b **⋄ Player Count: ** {players_count:,}\n"
             f"\u200b **⋄ Server Count: ** {len(self.bot.guilds):,}\n"
-            f"\u200b **⋄  Operating Version: [CF-R]({settings.repository_link})**\n\n",
+            f"\u200b **⋄  Operating Version: [{bot_version}]({settings.repository_link})**\n\n",
             inline=False,
         )
         embed.add_field(
@@ -183,7 +184,7 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
         Parameters
         ----------
         event: Event
-            the event u want to check info about!
+            The event u want to check info about!
         """
         await interaction.response.defer(thinking=True)
         content, file = await event.prepare_for_message(interaction)
