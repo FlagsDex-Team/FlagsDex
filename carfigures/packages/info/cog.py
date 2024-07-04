@@ -35,15 +35,17 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
         """
         Show the bot latency.
         """
-        await interaction.response.send_message(f"Pong! {round(self.bot.latency * 1000)}ms")
-
+        await interaction.response.send_message(
+            f"Pong! {round(self.bot.latency * 1000)}ms"
+        )
     @app_commands.command()
     async def status(self, interaction: discord.Interaction):
         """
         Show information about this bot.
         """
         embed = discord.Embed(
-            title=f"❑ {settings.bot_name} Bot Status", color=settings.default_embed_color
+            title=f"❑ {settings.bot_name} Bot Status",
+            color=settings.default_embed_color,
         )
 
         cars_count = len([x for x in carfigures.values() if x.enabled])
@@ -101,33 +103,37 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
             inline=False,
         )
 
-    #    embed.add_field(
-    #         name="⋈ Developers",
-    #         value=developers,
-    #         inline=True
-    #    )
-    embed.add_field(name="⋊ Contributors", value=contributors, inline=False)
-    #    embed.add_field(
-    #        name="⋋ Testers\n",
-    #        value=testers,
-    #        inline=True
-    #    )
-    embed.add_field(
-        name="⋇ Links",
-        value=f"[Discord server]({settings.discord_invite}) • [Invite me]({invite_link}) • "
-        f"[Source code and issues]({settings.repository_link})\n"
-        f"[Terms of Service]({settings.terms_of_service}) • "
-        f"[Privacy policy]({settings.privacy_policy}) • "
-        f"[Top.gg Link]({settings.top_gg})",
-        inline=False,
-    )
-    embed.set_thumbnail(url=self.bot.user.display_avatar.url)
-    v = sys.version_info
-    embed.set_footer(
-        text=f"Python {v.major}.{v.minor}.{v.micro} • discord.py {discord.__version__}"
-    )
+        #    embed.add_field(
+        #         name="⋈ Developers",
+        #         value=developers,
+        #         inline=True
+        #    )
+        embed.add_field(name="⋊ Contributors", value=contributors, inline=False)
+        #    embed.add_field(
+        #        name="⋋ Testers\n",
+        #        value=testers,
+        #        inline=True
+        #    )
+        embed.add_field(
+            name="⋇ Links",
+            value=f"[Discord server]({settings.discord_invite}) • [Invite me]({invite_link}) • "
+            f"[Source code and issues]({settings.repository_link})\n"
+            f"[Terms of Service]({settings.terms_of_service}) • "
+            f"[Privacy policy]({settings.privacy_policy}) • "
+            f"[Top.gg Link]({settings.top_gg})",
+            inline=False,
+        )
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
+        v = sys.version_info
+        embed.set_footer(
+            text=f"Python {v.major}.{v.minor}.{v.micro} • discord.py {discord.__version__}"
+        )
 
-    await interaction.response.send_message(embed=embed)
+<<<<<<< HEAD
+        await interaction.response.send_message(embed=embed)
+=======
+    await interaction.response.send_message(embed=embed, ephemeral=True)
+>>>>>>> cfb2407c2572e50a6c450a8ac5cb62605976e3e5
 
     @app_commands.command()
     async def commands(self, interaction: discord.Interaction):
@@ -160,7 +166,7 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
                 # Combine formatted command names with newlines
                 command_list = "\n".join(
                     [
-                        f"\u200B ⋄ {mention_app_command(c)}: {command_descriptions[c.name]}"
+                        f"\u200b ⋄ {mention_app_command(c)}: {command_descriptions[c.name]}"
                         for c in sorted_commands
                     ]
                 )
@@ -169,11 +175,13 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
             entry = (f"**Category: {category_name}**", f"{command_list}")
             entries.append(entry)
 
-        source = FieldPageSource(entries=entries, per_page=2)  # Adjust per_page as needed
+        source = FieldPageSource(
+            entries=entries, per_page=2
+        )  # Adjust per_page as needed
         source.embed.title = f"{settings.bot_name} Commands list"
         source.embed.colour = settings.default_embed_color
         pages = Pages(source=source, interaction=interaction, compact=True)
-        await pages.start()
+        await pages.start(ephemeral=True)
 
     @app_commands.command()
     @app_commands.checks.cooldown(1, 60, key=lambda i: i.user.id)
@@ -212,45 +220,53 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
         embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         embed.add_field(
             name=f"What is {settings.bot_name}?",
-            value=f"{settings.bot_name} is a bot that allows you to collect {settings.collectible_name} for your server.",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"How do I catch a {settings.collectible_name}?",
-            value=(
-                f"To catch a {settings.collectible_name}, you can simply type its name\n"
-                "in a chat. The bot will recognize it and add\n"
-                "it to your showroom."
+            value= (
+                f"{settings.bot_name} is a bot that allows you to collect {settings.collectible_name}s "
+                "by catching them, trading for them, and having fun with all of our commands!"
             ),
             inline=False,
         )
         embed.add_field(
+<<<<<<< HEAD
             name="How do I show my showroom?",
-            value=("To see the cars you have caught, you can use the `/showroom` command."),
+            value=(
+                "To see the cars you have caught, you can use the `/showroom` command."
+=======
+            name=f"How can I catch a {settings.collectible_name}?",
+            value=(
+                f"To catch a {settings.collectible_name}, you can simply tap the blue `Catch me!` button "
+                f"when a {settings.collectible_name} spawns, type the name of it, and if you get "
+                "it right, it will be added to your showroom!"
+>>>>>>> cfb2407c2572e50a6c450a8ac5cb62605976e3e5
+            ),
             inline=False,
         )
         embed.add_field(
-            name=f"How do I get more {settings.cars_group_name}?",
+            name="How can I show my showroom?",
+            value= (
+                "To see the cars you have caught, you can\n"
+                f"use the `/{settings.cars_group_name}` command!"
+            ),
+            inline=False,
+        )
+        embed.add_field(
+            name=f"How can I get more {settings.cars_group_name}?",
             value=(
-                f"To get more {settings.cars_group_name}, you can simply catch\n"
-                f"more {settings.cars_group_name}. The more {settings.cars_group_name} you catch, the\n"
-                f"rarer the {settings.cars_group_name} you will get."
+                f"To get more {settings.cars_group_name}, you can simply catch "
+                f"more {settings.cars_group_name}! The more {settings.cars_group_name} you catch, the "
+                f"rarer the {settings.cars_group_name} you will get. You can also trade with other users "
+                f"in order to get more {settings.cars_group_name}!"
             ),
             inline=False,
         )
 
-        embed.set_footer(
-            text=f"Requested by {interaction.user.display_name}",
-            icon_url=interaction.user.display_avatar.url,
-        )
-
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @app_commands.command()
     @app_commands.checks.cooldown(1, 60, key=lambda i: i.user.id)
     async def about(self, interaction: discord.Interaction):
         """
-        Info about the bot reason to exist etc
+        Information about the bot (the reason it got created, and more coming soon!)
         """
 
         entries = []
@@ -263,7 +279,7 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
         descriptionblack = ("", "")
         entries.append(descriptionblack)
 
-        history = ("History", settings.bot_description)
+        history = ("History", settings.bot_history)
         entries.append(history)
         historyblack = ("", "")
         entries.append(historyblack)
@@ -277,4 +293,4 @@ class Info(commands.GroupCog, group_name=settings.info_group_name):
             text=f"Python {v.major}.{v.minor}.{v.micro} • discord.py {discord.__version__}"
         )
         pages = Pages(source=source, interaction=interaction, compact=True)
-        await pages.start()
+        await pages.start(ephemeral=True)
