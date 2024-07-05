@@ -5,6 +5,8 @@ import logging
 
 from typing import TYPE_CHECKING
 
+from tortoise.exceptions import DoesNotExist
+
 from discord import app_commands
 from discord.ext import commands
 
@@ -108,7 +110,7 @@ class Player(commands.GroupCog, group_name=settings.player_group_name):
                 ephemeral=True,
             )
         else:
-            await interaction.response.send_message("Invalid input!")
+            await interaction.response.send_message("Invalid input!", ephemeral=True)
             return
         await user.save()  # do not save if the input is invalid
 
@@ -163,7 +165,7 @@ class Player(commands.GroupCog, group_name=settings.player_group_name):
             text=f"Requested by {interaction.user.display_name}",
             icon_url=interaction.user.display_avatar.url,
         )
-        await interaction.response.send_message(embed=embed)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @app_commands.command()
     async def delete(self, interaction: discord.Interaction):
@@ -171,16 +173,24 @@ class Player(commands.GroupCog, group_name=settings.player_group_name):
         Delete your player data.
         """
         view = ConfirmChoiceView(interaction)
-        await interaction.response.send_message(
-            "Are you sure you want to delete your player data?",
-            view=view,
-            ephemeral=True,
-        )
+        await interaction.response.defer(thinking=True, ephemeral=True)
+
+        try:
+            player = await PlayerModel.get(discord_id=interaction.user.id)
+        except DoesNotExist:
+            await interaction.followup.send("You haven't got any data to delete.")
+            return
+        else:
+            await interaction.followup.send(
+                "Are you sure you want to delete your player data?", 
+                view=view, 
+            )
         await view.wait()
         if view.value is None or not view.value:
             return
-        player, _ = await PlayerModel.get_or_create(discord_id=interaction.user.id)
+        
         await player.delete()
+        await interaction.followup.send("Player data deleted.", ephemeral=True)
 
     @app_commands.command()
     @app_commands.choices(

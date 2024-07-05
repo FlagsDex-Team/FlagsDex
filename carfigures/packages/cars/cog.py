@@ -384,7 +384,13 @@ class Cars(commands.GroupCog, group_name=settings.cars_group_name):
     @app_commands.command(
         name=settings.favorite_command_name, description=settings.favorite_command_desc
     )
-    async def favorite(self, interaction: discord.Interaction, carfigure: CarInstanceTransform):
+    async def favorite(
+        self, 
+        interaction: discord.Interaction, 
+        carfigure: CarInstanceTransform,
+        event: EventEnabledTransform | None = None,
+        limited: bool | None = None,
+    ):
         """
         Set favorite carfigures.
 
@@ -392,6 +398,10 @@ class Cars(commands.GroupCog, group_name=settings.cars_group_name):
         ----------
         carfigure: CarInstance
             The carfigure you want to set/unset as favorite
+        event: Event
+            Filter the results of autocompletion to an event. Ignored afterwards.
+        limited: bool
+            Filter the results of autocompletion to limiteds. Ignored afterwards.
         """
         # Checks if the car is not favorited
         if not carfigure.favorite:
@@ -434,6 +444,8 @@ class Cars(commands.GroupCog, group_name=settings.cars_group_name):
         interaction: discord.Interaction,
         user: discord.User,
         carfigure: CarInstanceTransform,
+        event: EventEnabledTransform | None = None,
+        limited: bool | None = None,
     ):
         """
         Give a carfigure to a user.
@@ -455,7 +467,7 @@ class Cars(commands.GroupCog, group_name=settings.cars_group_name):
             )
             return
         if user.bot:
-            await interaction.response.send_message("You cannot donate to bots.")
+            await interaction.response.send_message("You cannot donate to bots.", ephemeral=True)
             return
         if await carfigure.is_locked():
             await interaction.response.send_message(
@@ -469,13 +481,15 @@ class Cars(commands.GroupCog, group_name=settings.cars_group_name):
 
         if new_player == old_player:
             await interaction.response.send_message(
-                f"You cannot give a {settings.collectible_name} to yourself."
+                f"You cannot give a {settings.collectible_name} to yourself.",
+                ephemeral=True
             )
             await carfigure.unlock()
             return
         if new_player.donation_policy == DonationPolicy.ALWAYS_DENY:
             await interaction.response.send_message(
-                "This user does not accept donations. You can use trades instead."
+                "This user does not accept donations. You can use trades instead.",
+                ephemeral=True
             )
             await carfigure.unlock()
             return
