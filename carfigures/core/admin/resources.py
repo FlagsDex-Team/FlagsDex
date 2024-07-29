@@ -14,6 +14,7 @@ from carfigures.core.models import (
     BlacklistedGuild,
     BlacklistedUser,
     Country,
+    Exclusive,
     GuildConfig,
     Player,
     CarType,
@@ -155,6 +156,38 @@ class EventResource(Model):
             )
         )
         return actions
+
+
+@app.register
+class ExclusiveResource(Model):
+    label = "Exclusives"
+    model = Exclusive
+    icon = "fas fa-star"
+    page_pre_title = "The List of:"
+    page_title = "Exclusives"
+    fields = [
+        "name",
+        Field(
+            name="image",
+            label="Card Image (1428x2000)",
+            display=displays.Image(width="40"),
+            input_=inputs.Image(upload=upload, null=True),
+        ),
+        "rarity",
+        Field(
+            name="rebirth_required",
+            label="The Amount of Rebirths Required to be able to Obtain this card",
+            display=displays.Display(),
+            input_=inputs.Number(),
+        ),
+        "emoji",
+        Field(
+            name="catch_phrase",
+            label="The Catch Phrase!",
+            display=displays.InputOnly(),
+            input_=inputs.Text(),
+        ),
+    ]
 
 
 @app.register
@@ -330,6 +363,7 @@ class InstanceResource(Model):
         "catch_date",
         "server_id",
         "limited",
+        "exclusive",
         "event",
         "favorite",
         "weight_bonus",
